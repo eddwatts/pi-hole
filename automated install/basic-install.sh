@@ -521,7 +521,8 @@ valid_ip() {
 setDNS() {
   local DNSSettingsCorrect
 
-  DNSChooseOptions=(Google ""
+  DNSChooseOptions=(Quad9 ""
+      Google ""
       OpenDNS ""
       Level3 ""
       Norton ""
@@ -532,6 +533,10 @@ setDNS() {
     "${DNSChooseOptions[@]}" 2>&1 >/dev/tty) || \
     { echo "::: Cancel selected. Exiting"; exit 1; }
   case ${DNSchoices} in
+    Quad9)
+      echo "::: Using IBM Quad9 DNS servers."
+      PIHOLE_DNS_1="9.9.9.9"
+      ;;
     Google)
       echo "::: Using Google DNS servers."
       PIHOLE_DNS_1="8.8.8.8"
